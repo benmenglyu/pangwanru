@@ -69,6 +69,7 @@ pages.set('cv.html', `${head('Curriculum vitae | Wanru Pang','Full academic curr
 <section id="education" class="cv-section"><h2>Education</h2>${education(true)}<p class="dissertation"><strong>Doctoral dissertation</strong><br>${esc(profile.dissertation)}</p></section>${researchSections()}<section id="cv-publications" class="cv-section"><h2>Peer-reviewed publications</h2>${published.map(paperRow).join('')}${manuscripts()}</section>${conferenceSection()}${teachingSection()}${leadershipSection()}<section id="awards" class="cv-section"><h2>Awards &amp; honours</h2>${genericRows(profile.awards)}</section><section id="methods" class="cv-section"><h2>Methods &amp; languages</h2>${profile.methods.map(m=>`<div class="method"><h3>${esc(m.title)}</h3><p>${esc(m.detail)}</p></div>`).join('')}</section><p class="cv-end">Updated <time datetime="${profile.updated}">${dateLabel}</time>. ${pdfLink()}</p></main>${citeDialog}${footer()}`);
 
 await mkdir(path.join(root,'dist/assets'), {recursive:true});
+pages.set('.nojekyll','');
 pages.set('publications.bib',published.map(bib).join('\n\n')+'\n');
 pages.set('robots.txt',siteBase?`User-agent: *\nAllow: /\nSitemap: ${new URL('sitemap.xml',siteBase).href}\n`:'User-agent: *\nDisallow: /\n');
 pages.set('sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${siteBase?[...pages.keys()].filter(n=>n.endsWith('.html')).map(n=>`<url><loc>${esc(publicUrl(n))}</loc><lastmod>${profile.updated}</lastmod></url>`).join(''):''}</urlset>\n`);

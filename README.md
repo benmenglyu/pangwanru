@@ -29,13 +29,13 @@ npm run check
 
 The PDF builder uses Windows Arial, Georgia and SimSun fonts and writes `output/pdf/Wanru-Pang-CV.pdf`, then copies it into the website assets. Its metadata carries a content fingerprint; checks reject a PDF that no longer matches the content files. A prebuilt PDF is committed so the hosting service needs only Node.js. For PDF generation on other operating systems, configure equivalent installed fonts in `scripts/build-pdf.py`.
 
-Commit source, generated root HTML, `sitemap.xml`, citations and the PDF together. Deploy only `dist/`; private analysis, source DOCX, QA outputs, build scripts and content JSON are excluded from that directory.
+Commit source, generated root HTML, `sitemap.xml`, citations and the PDF together. GitHub Pages publishes the generated files from the repository root. The original DOCX, private analysis and local QA outputs are outside the published repository. `dist/` is a portable website-only build for future hosting changes.
 
 ## Hosting and search
 
-Source repository: https://github.com/benmenglyu/pangwanru. The public site is configured for https://pangwanru.fresh-morel-1341.chatgpt.site, supplied by the Sites plugin. The tracked `.openai/hosting.json` binds this checkout to that existing Site; preserve its project ID during updates. GitHub holds the maintained source; uploading to GitHub alone does not publish a Sites update. Build and check, then publish the corresponding source commit through Sites.
+Source repository: https://github.com/benmenglyu/pangwanru. The website is configured for https://benmenglyu.github.io/pangwanru/. In repository Settings → Pages, select Deploy from a branch, choose `main` and `/(root)`, then save. After the initial setup, pushes to `main` automatically publish the generated website. `.nojekyll` keeps the plain HTML, CSS, JavaScript and PDF files unchanged. The account's existing homepage at the domain root is a separate repository.
 
-For an optional migration to Cloudflare Pages: use the repository's `main` branch, build command `npm run build && npm run check`, output directory `dist`, and Node.js 22 or later. Set `siteUrl` to the new verified public HTTPS URL, set `prettyUrls` to `true` for Cloudflare Pages, regenerate the PDF, and rebuild. The configured public URL enables indexing, canonical URLs, Open Graph URLs, Person structured data and a six-page sitemap. Setting `siteUrl` to an empty string disables indexing for private previews.
+The current publishing route uses GitHub Pages only; the previous Sites configuration is unused. Relative asset and navigation links support the `/pangwanru/` project path. `siteUrl` enables canonical URLs, Open Graph URLs, Person structured data and a six-page sitemap. Setting it to an empty string disables indexing for private previews. The project's `robots.txt` is supplied for portability; on GitHub project sites, crawler policy comes from the account domain's root `robots.txt`.
 
 GitHub source hosting does not determine the public address. A `.site` registration is a separate paid product; it is not supplied free by GitHub Pages or Cloudflare Pages. No domain was purchased. An owned custom domain can be attached later.
 

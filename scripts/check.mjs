@@ -15,7 +15,8 @@ for (const p of papers) {
 const pageNames=['index.html','publications.html','experience.html','teaching.html','awards.html','cv.html'];
 for(const filename of pageNames) {
   const html=await read(`dist/${filename}`);
-  assert(!/github/i.test(html),'Public website must not contain GitHub branding or links');
+  assert(!/github/i.test(html.split('</head>')[1]),'Visible pages must not contain GitHub branding or repository links');
+  assert(!/<a\b[^>]*href=["']https?:\/\/(?:www\.)?github\.com(?:\/|["'])/i.test(html),'Public website must not link to the source repository');
   // Reject phone-sized numeric strings; retain only identifiers from the published DOI list.
   const bibliographyNumbers = new Set(papers.flatMap(p => [...(p.doi || '').matchAll(/\d{8,}/g)].map(match => match[0])));
   assert([...html.matchAll(/\d{8,}/g)].every(match => bibliographyNumbers.has(match[0])), 'Unapproved phone-sized number in the public website');
