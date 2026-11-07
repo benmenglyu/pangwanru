@@ -1,0 +1,13 @@
+{
+  "name": "wanru-pang-academic-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Wanru Pang's academic homepage. Static, portable, and easy to maintain.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "node scripts/serve.mjs",
+    "check": "node scripts/check.mjs"
+  },
+  "engines": { "node": ">=20" }
+}

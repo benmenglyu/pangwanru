@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pangwanru.fresh-morel-1341.chatgpt.site/sitemap.xml
